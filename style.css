@@ -1,0 +1,375 @@
+/* ===========================
+   GOOGLE FONT
+=========================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* ===========================
+   RESET
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:#ffffff;
+    line-height:1.7;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+a{
+    text-decoration:none;
+    color:white;
+}
+
+ul{
+    list-style:none;
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+
+header{
+    width:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    background:rgba(15,23,42,.95);
+    backdrop-filter:blur(10px);
+    z-index:1000;
+}
+
+nav{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 0;
+}
+
+nav h2{
+    font-size:2rem;
+    color:#38bdf8;
+    cursor:pointer;
+}
+
+nav ul{
+    display:flex;
+    gap:30px;
+}
+
+nav ul li a{
+    transition:.3s;
+    font-weight:500;
+}
+
+nav ul li a:hover{
+    color:#38bdf8;
+}
+
+/* ===========================
+   SECTION
+=========================== */
+
+section{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:120px 0;
+}
+
+section h2{
+    text-align:center;
+    font-size:2.5rem;
+    margin-bottom:50px;
+    color:#38bdf8;
+}
+
+/* ===========================
+   HOME
+=========================== */
+
+#home{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:60px;
+}
+
+.home-content{
+    flex:1;
+}
+
+.home-content h1{
+    font-size:3.5rem;
+    margin-bottom:10px;
+}
+
+.home-content span{
+    color:#38bdf8;
+}
+
+.home-content h3{
+    font-size:1.7rem;
+    margin-bottom:20px;
+    color:#94a3b8;
+}
+
+.home-content p{
+    margin-bottom:30px;
+    color:#cbd5e1;
+}
+
+.buttons{
+    display:flex;
+    gap:20px;
+}
+
+.buttons a{
+    padding:14px 30px;
+    border-radius:8px;
+    transition:.3s;
+    font-weight:600;
+}
+
+.buttons a:first-child{
+    background:#38bdf8;
+    color:black;
+}
+
+.buttons a:last-child{
+    border:2px solid #38bdf8;
+}
+
+.buttons a:hover{
+    transform:translateY(-5px);
+}
+
+.home-image{
+    flex:1;
+    display:flex;
+    justify-content:center;
+}
+
+.home-image img{
+    width:350px;
+    height:350px;
+    border-radius:50%;
+    border:5px solid #38bdf8;
+    object-fit:cover;
+    box-shadow:0 0 40px rgba(56,189,248,.4);
+}
+
+/* ===========================
+   ABOUT
+=========================== */
+
+#about p{
+    max-width:850px;
+    margin:auto;
+    text-align:center;
+    color:#cbd5e1;
+    font-size:1.05rem;
+}
+
+/* ===========================
+   SKILLS
+=========================== */
+
+.skills-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:30px;
+}
+
+.skill-box{
+    background:#1e293b;
+    padding:30px;
+    border-radius:15px;
+    transition:.3s;
+    border:1px solid transparent;
+}
+
+.skill-box:hover{
+    transform:translateY(-10px);
+    border-color:#38bdf8;
+}
+
+.skill-box h3{
+    color:#38bdf8;
+    margin-bottom:20px;
+}
+
+.skill-box ul li{
+    margin:12px 0;
+}
+
+/* ===========================
+   PROJECTS
+=========================== */
+
+.project-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.project-card{
+    background:#1e293b;
+    padding:30px;
+    border-radius:15px;
+    transition:.3s;
+}
+
+.project-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 25px rgba(56,189,248,.3);
+}
+
+.project-card h3{
+    color:#38bdf8;
+    margin-bottom:15px;
+}
+
+/* ===========================
+   EDUCATION
+=========================== */
+
+.education-box{
+    background:#1e293b;
+    padding:40px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.education-box h3{
+    color:#38bdf8;
+    margin-bottom:15px;
+}
+
+/* ===========================
+   CONTACT
+=========================== */
+
+form{
+    max-width:700px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    outline:none;
+    background:#1e293b;
+    color:white;
+    font-size:1rem;
+}
+
+textarea{
+    resize:none;
+}
+
+button{
+    padding:15px;
+    background:#38bdf8;
+    color:black;
+    border:none;
+    border-radius:10px;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-5px);
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+
+footer{
+    background:#020617;
+    padding:25px;
+    text-align:center;
+    color:#94a3b8;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:900px){
+
+    nav{
+        flex-direction:column;
+        gap:20px;
+    }
+
+    nav ul{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    #home{
+        flex-direction:column-reverse;
+        text-align:center;
+        padding-top:170px;
+    }
+
+    .buttons{
+        justify-content:center;
+        flex-wrap:wrap;
+    }
+
+    .home-content h1{
+        font-size:2.8rem;
+    }
+
+    .home-content h3{
+        font-size:1.4rem;
+    }
+
+    .home-image img{
+        width:280px;
+        height:280px;
+    }
+
+}
+
+@media(max-width:600px){
+
+    section h2{
+        font-size:2rem;
+    }
+
+    .home-content h1{
+        font-size:2.2rem;
+    }
+
+    .buttons a{
+        width:100%;
+        text-align:center;
+    }
+
+}
