@@ -12,51 +12,98 @@
     <!-- Google Fonts (Optional) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
 
     <!-- ================= NAVBAR ================= -->
     <header>
-        <nav>
-            <h2>Ritwik.</h2>
+    <nav>
 
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+        <h2>Ritwik.</h2>
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <!-- Dark / Light Mode Button -->
+        <button id="theme-toggle">🌙</button>
+
+    </nav>
+</header>
 
     <!-- ================= HOME ================= -->
     <section id="home">
 
-        <div class="home-content">
-            <h1>Hi, I'm <span>Ritwik Chandra</span></h1>
+    <div class="home-content">
 
-            <h3>AI & ML Engineer | Full Stack Developer</h3>
+        <h4>Hello, I'm</h4>
 
-            <p>
-                Passionate about Artificial Intelligence, Machine Learning,
-                Full Stack Development, and building impactful real-world
-                applications.
-            </p>
+        <h1>Ritwik <span>Chandra</span></h1>
 
-            <div class="buttons">
-                <a href="#">Download Resume</a>
-                <a href="#contact">Contact Me</a>
-            </div>
+        <h3>AI & ML Engineer | Full Stack Developer</h3>
+
+        <p>
+            Passionate about Artificial Intelligence, Machine Learning,
+            Full Stack Development and building impactful real-world
+            applications using modern technologies.
+        </p>
+
+        <div class="buttons">
+
+            <a href="resume.pdf" download>
+                Download Resume
+            </a>
+
+            <a href="#contact">
+                Contact Me
+            </a>
+
         </div>
 
-        <div class="home-image">
-            <img src="images/profile.png" alt="Ritwik Chandra">
+        <!-- Social Links -->
+
+        <div class="social-links">
+
+            <a href="https://github.com/rikichandra2002" target="_blank">
+                GitHub
+            </a>
+
+            <a href="https://www.linkedin.com/in/ritwik-chandra-a67085246/" target="_blank">
+                LinkedIn
+            </a>
+
+            <a href="https://leetcode.com/u/_Ritwik_2002_AIML/" target="_blank">
+                LeetCode
+            </a>
+
+            <a href="https://takeuforward.org/profile/oggyriki" target="_blank">
+                TakeUForward
+            </a>
+
+            <a href="https://www.hackerrank.com/profile/ritwikchandra8" target="_blank">
+                HackerRank
+            </a>
+
         </div>
 
-    </section>
+    </div>
+
+    <div class="home-image">
+
+        <img src="images/profile.jpg"
+             alt="Ritwik Chandra">
+
+    </div>
+
+</section>
 
     <!-- ================= ABOUT ================= -->
     <section id="about">
@@ -128,40 +175,72 @@
     </section>
 
     <!-- ================= PROJECTS ================= -->
-    <section id="projects">
+    <!-- ================= PROJECTS ================= -->
+<section id="projects">
 
-        <h2>Projects</h2>
+    <h2>Featured Projects</h2>
 
-        <div class="project-container">
+    <div class="project-container">
 
-            <div class="project-card">
-                <h3>AI Chatbot</h3>
+        <!-- AI Chatbot -->
 
-                <p>
-                    AI chatbot using Gemini API, Next.js and MongoDB.
-                </p>
-            </div>
+        <div class="project-card">
 
-            <div class="project-card">
-                <h3>Full Stack Quiz App</h3>
+            <h3>🤖 AI Chatbot</h3>
 
-                <p>
-                    MERN stack quiz platform with authentication and leaderboard.
-                </p>
-            </div>
+            <p>
+                An AI-powered chatbot built with Next.js, Gemini API, and MongoDB.
+                Supports intelligent conversations with a modern, responsive interface.
+            </p>
 
-            <div class="project-card">
-                <h3>Hand Sign Detection</h3>
-
-                <p>
-                    Real-time sign language recognition using TensorFlow.js.
-                </p>
-            </div>
+            <a href="https://github.com/rikichandra2002/my-ai-chatbot"
+               target="_blank">
+                View Code →
+            </a>
 
         </div>
 
-    </section>
+        <!-- Environment Project -->
 
+        <div class="project-card">
+
+            <h3>🌿 Environment Degradation & Jungle Mahal Development</h3>
+
+            <p>
+                A MERN Stack application for monitoring environmental degradation,
+                deforestation, and sustainable development initiatives with secure
+                user authentication.
+            </p>
+
+            <a href="https://github.com/rikichandra2002/environment-jungle-project"
+               target="_blank">
+                View Code →
+            </a>
+
+        </div>
+
+        <!-- Sign Language -->
+
+        <div class="project-card">
+
+            <h3>🖐️ Sign Language Detection</h3>
+
+            <p>
+                Real-time hand sign recognition system using TensorFlow.js and
+                MediaPipe to detect and classify sign language gestures directly
+                in the browser.
+            </p>
+
+            <a href="https://github.com/rikichandra2002/Sign-Language-Detection"
+               target="_blank">
+                View Code →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
     <!-- ================= EDUCATION ================= -->
     <section id="education">
 
@@ -182,24 +261,93 @@
     <!-- ================= CONTACT ================= -->
     <section id="contact">
 
-        <h2>Contact Me</h2>
+    <h2>Get In Touch</h2>
 
-        <form>
+    <p>
+        Feel free to contact me regarding internships, job opportunities,
+        collaborations, or any exciting projects.
+    </p>
 
-            <input type="text" placeholder="Your Name">
+    <div class="contact-info">
 
-            <input type="email" placeholder="Your Email">
+        <p>
+            <strong>Email:</strong>
+            <a href="mailto:ritwikchandra8@gmail.com">
+                ritwikchandra8@gmail.com
+            </a>
+        </p>
 
-            <input type="text" placeholder="Subject">
+        <p>
+            <strong>Phone:</strong>
+            <a href="tel:+918101042650">
+                +91 81010 42650
+            </a>
+        </p>
 
-            <textarea rows="6" placeholder="Your Message"></textarea>
+        <p>
+            <strong>GitHub:</strong>
+            <a href="https://github.com/rikichandra2002" target="_blank">
+                github.com/rikichandra2002
+            </a>
+        </p>
 
-            <button type="submit">Send Message</button>
+        <p>
+            <strong>LinkedIn:</strong>
+            <a href="https://www.linkedin.com/in/ritwik-chandra-a67085246/" target="_blank">
+                View Profile
+            </a>
+        </p>
 
-        </form>
+        <p>
+            <strong>LeetCode:</strong>
+            <a href="https://leetcode.com/u/_Ritwik_2002_AIML/" target="_blank">
+                View Profile
+            </a>
+        </p>
 
-    </section>
+        <p>
+            <strong>HackerRank:</strong>
+            <a href="https://www.hackerrank.com/profile/ritwikchandra8" target="_blank">
+                View Profile
+            </a>
+        </p>
 
+    </div>
+
+    <br>
+
+    <form action="https://formspree.io/f/mwlevepe" method="POST">
+
+        <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            required>
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            required>
+
+        <input
+            type="text"
+            name="subject"
+            placeholder="Subject">
+
+        <textarea
+            name="message"
+            rows="6"
+            placeholder="Write your message..."
+            required></textarea>
+
+        <button type="submit">
+            Send Message
+        </button>
+
+    </form>
+
+</section>
     <!-- ================= FOOTER ================= -->
     <footer>
 
