@@ -954,3 +954,321 @@ document.documentElement.style.setProperty(
     "--portfolio-loaded",
     "1"
 );
+
+/* =========================================================
+   MODERN MOUSE SPOTLIGHT
+========================================================= */
+
+(function initMouseSpotlight() {
+
+    const supportsMouse =
+        window.matchMedia(
+            "(hover: hover) and (pointer: fine)"
+        ).matches;
+
+    if (!supportsMouse) {
+        return;
+    }
+
+
+    /* -----------------------------------------------------
+       CREATE SPOTLIGHT
+    ----------------------------------------------------- */
+
+    const spotlight =
+        document.createElement("div");
+
+    spotlight.className =
+        "mouse-spotlight";
+
+    document.body.appendChild(
+        spotlight
+    );
+
+
+    /* -----------------------------------------------------
+       POSITION
+    ----------------------------------------------------- */
+
+    let mouseX =
+        window.innerWidth / 2;
+
+    let mouseY =
+        window.innerHeight / 2;
+
+    let currentX =
+        mouseX;
+
+    let currentY =
+        mouseY;
+
+
+    document.addEventListener(
+        "mousemove",
+        function (event) {
+
+            mouseX =
+                event.clientX;
+
+            mouseY =
+                event.clientY;
+
+            document.body.classList.add(
+                "mouse-active"
+            );
+        },
+        { passive: true }
+    );
+
+
+    /* -----------------------------------------------------
+       SMOOTH FOLLOW
+    ----------------------------------------------------- */
+
+    function animate() {
+
+        currentX +=
+            (mouseX - currentX) * 0.09;
+
+        currentY +=
+            (mouseY - currentY) * 0.09;
+
+
+        spotlight.style.transform =
+            `translate3d(
+                ${currentX}px,
+                ${currentY}px,
+                0
+            ) translate(-50%, -50%)`;
+
+
+        requestAnimationFrame(
+            animate
+        );
+    }
+
+    animate();
+
+
+    /* -----------------------------------------------------
+       HIDE WHEN MOUSE LEAVES
+    ----------------------------------------------------- */
+
+    document.addEventListener(
+        "mouseleave",
+        function () {
+
+            document.body.classList.remove(
+                "mouse-active"
+            );
+        }
+    );
+
+
+    /* -----------------------------------------------------
+       HIGHLIGHT IMPORTANT UI
+    ----------------------------------------------------- */
+
+    const interactiveElements =
+        document.querySelectorAll(
+            ".project-card, " +
+            ".skill-category, " +
+            ".certificate-card, " +
+            ".stat-card, " +
+            ".experience-card, " +
+            ".resume-card, " +
+            ".contact-form"
+        );
+
+
+    interactiveElements.forEach(
+        function (element) {
+
+            element.classList.add(
+                "mouse-highlight"
+            );
+
+
+            element.addEventListener(
+                "mouseenter",
+                function () {
+
+                    element.classList.add(
+                        "is-hovered"
+                    );
+                }
+            );
+
+
+            element.addEventListener(
+                "mouseleave",
+                function () {
+
+                    element.classList.remove(
+                        "is-hovered"
+                    );
+                }
+            );
+        }
+    );
+
+})();
+
+/* ============================================
+   BEYOND THE CODE — GALLERY LIGHTBOX
+   ============================================ */
+
+(function initGalleryLightbox() {
+    const galleryItems = document.querySelectorAll(".gallery-item");
+
+    if (!galleryItems.length) return;
+
+    const images = Array.from(galleryItems).map((item) => ({
+        src: item.dataset.galleryImage,
+        title: item.dataset.galleryTitle || "Moment & Milestone"
+    }));
+
+    let currentIndex = 0;
+
+    /* Create lightbox */
+
+    const lightbox = document.createElement("div");
+    lightbox.className = "gallery-lightbox";
+
+    lightbox.innerHTML = `
+        <div class="lightbox-backdrop"></div>
+
+        <div class="lightbox-content" role="dialog" aria-modal="true">
+
+            <button
+                class="lightbox-close"
+                type="button"
+                aria-label="Close gallery"
+            >
+                <i class="fas fa-xmark"></i>
+            </button>
+
+            <button
+                class="lightbox-prev"
+                type="button"
+                aria-label="Previous image"
+            >
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="lightbox-image-wrapper">
+                <img
+                    class="lightbox-image"
+                    src=""
+                    alt=""
+                >
+            </div>
+
+            <button
+                class="lightbox-next"
+                type="button"
+                aria-label="Next image"
+            >
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <div class="lightbox-info">
+                <span class="lightbox-title"></span>
+                <span class="lightbox-counter"></span>
+            </div>
+
+        </div>
+    `;
+
+    document.body.appendChild(lightbox);
+
+    const image = lightbox.querySelector(".lightbox-image");
+    const title = lightbox.querySelector(".lightbox-title");
+    const counter = lightbox.querySelector(".lightbox-counter");
+
+    const closeButton = lightbox.querySelector(".lightbox-close");
+    const previousButton = lightbox.querySelector(".lightbox-prev");
+    const nextButton = lightbox.querySelector(".lightbox-next");
+    const backdrop = lightbox.querySelector(".lightbox-backdrop");
+
+    /* Update image */
+
+    function updateLightbox(index) {
+        currentIndex = (index + images.length) % images.length;
+
+        const currentImage = images[currentIndex];
+
+        image.src = currentImage.src;
+        image.alt = currentImage.title;
+
+        title.textContent = currentImage.title;
+        counter.textContent = `${currentIndex + 1} / ${images.length}`;
+    }
+
+    /* Open */
+
+    function openLightbox(index) {
+        updateLightbox(index);
+
+        lightbox.classList.add("is-open");
+        document.body.classList.add("lightbox-open");
+
+        closeButton.focus();
+    }
+
+    /* Close */
+
+    function closeLightbox() {
+        lightbox.classList.remove("is-open");
+        document.body.classList.remove("lightbox-open");
+    }
+
+    /* Previous */
+
+    function showPrevious() {
+        updateLightbox(currentIndex - 1);
+    }
+
+    /* Next */
+
+    function showNext() {
+        updateLightbox(currentIndex + 1);
+    }
+
+    /* Gallery click */
+
+    galleryItems.forEach((item, index) => {
+        item.addEventListener("click", () => {
+            openLightbox(index);
+        });
+    });
+
+    /* Controls */
+
+    closeButton.addEventListener("click", closeLightbox);
+
+    previousButton.addEventListener("click", showPrevious);
+
+    nextButton.addEventListener("click", showNext);
+
+    backdrop.addEventListener("click", closeLightbox);
+
+    /* Keyboard controls */
+
+    document.addEventListener("keydown", (event) => {
+        if (!lightbox.classList.contains("is-open")) return;
+
+        if (event.key === "Escape") {
+            closeLightbox();
+        }
+
+        if (event.key === "ArrowLeft") {
+            showPrevious();
+        }
+
+        if (event.key === "ArrowRight") {
+            showNext();
+        }
+    });
+
+})();
