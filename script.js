@@ -334,83 +334,6 @@ if (backToTop) {
 updateBackToTop();
 
 /* =========================================================
-   11. SMOOTH INTERNAL LINKS
-========================================================= */
-
-const internalLinks = document.querySelectorAll('a[href^="#"]');
-
-internalLinks.forEach((link) => {
-    link.addEventListener("click", (event) => {
-        const targetId = link.getAttribute("href");
-
-        if (!targetId || targetId === "#") return;
-
-        let target = null;
-
-        try {
-            target = document.querySelector(targetId);
-        } catch (error) {
-            return;
-        }
-
-        if (!target) return;
-
-        event.preventDefault();
-
-        const headerHeight = siteHeader
-            ? siteHeader.offsetHeight
-            : 0;
-
-        const targetPosition =
-            target.getBoundingClientRect().top +
-            window.scrollY -
-            headerHeight;
-
-        window.scrollTo({
-            top: targetPosition,
-            behavior: "smooth"
-        });
-
-        closeMobileMenu();
-    });
-});
-
-/* =========================================================
-   12. PROJECT CARD INTERACTION
-========================================================= */
-
-const projectCards = document.querySelectorAll(".project-card");
-
-projectCards.forEach((card) => {
-    card.addEventListener("mouseenter", () => {
-        card.style.transition =
-            "transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease";
-    });
-
-    card.addEventListener("mouseleave", () => {
-        card.style.transform = "";
-    });
-});
-
-/* =========================================================
-   13. CERTIFICATE CARD INTERACTION
-========================================================= */
-
-const certificateCards = document.querySelectorAll(
-    ".certificate-card"
-);
-
-certificateCards.forEach((card) => {
-    card.addEventListener("mouseenter", () => {
-        card.classList.add("certificate-hover");
-    });
-
-    card.addEventListener("mouseleave", () => {
-        card.classList.remove("certificate-hover");
-    });
-});
-
-/* =========================================================
    14. CONTACT FORM FEEDBACK
 ========================================================= */
 
@@ -454,39 +377,6 @@ window.addEventListener("resize", () => {
     }
 });
 
-/* =========================================================
-   17. HANDLE HASH ON PAGE LOAD
-========================================================= */
-
-window.addEventListener("load", () => {
-    if (!window.location.hash) return;
-
-    let target = null;
-
-    try {
-        target = document.querySelector(window.location.hash);
-    } catch (error) {
-        return;
-    }
-
-    if (!target) return;
-
-    setTimeout(() => {
-        const headerHeight = siteHeader
-            ? siteHeader.offsetHeight
-            : 0;
-
-        const targetPosition =
-            target.getBoundingClientRect().top +
-            window.scrollY -
-            headerHeight;
-
-        window.scrollTo({
-            top: targetPosition,
-            behavior: "smooth"
-        });
-    }, 300);
-});
 /* =========================================================
    18. PROFILE IMAGE ERROR HANDLING
 ========================================================= */
@@ -532,84 +422,110 @@ document.documentElement.style.setProperty(
 );
 
 /* =========================================================
-   20. MODERN MOUSE SPOTLIGHT
+   MODERN CURSOR TRACKING
 ========================================================= */
+(function initCursorExperience() {
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!finePointer || reducedMotion) return;
 
-(function initMouseSpotlight() {
-    const supportsMouse = window.matchMedia(
-        "(hover: hover) and (pointer: fine)"
-    ).matches;
+    const follower = document.createElement("div");
+    follower.className = "cursor-follower";
+    follower.setAttribute("aria-hidden", "true");
 
-    if (!supportsMouse) return;
+    const aura = document.createElement("div");
+    aura.className = "cursor-aura";
+    aura.setAttribute("aria-hidden", "true");
 
-    // Create the spotlight element.
-    const spotlight = document.createElement("div");
-    spotlight.className = "mouse-spotlight";
+    document.body.append(aura, follower);
 
-    document.body.appendChild(spotlight);
+    let targetX = -100;
+    let targetY = -100;
+    let currentX = targetX;
+    let currentY = targetY;
+    let auraX = targetX;
+    let auraY = targetY;
+    let frameRequested = false;
 
-    // Track the mouse position.
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-
-    let currentX = mouseX;
-    let currentY = mouseY;
-
-    document.addEventListener(
-        "mousemove",
-        (event) => {
-            mouseX = event.clientX;
-            mouseY = event.clientY;
-
-            document.body.classList.add("mouse-active");
-        },
-        { passive: true }
+    const cards = document.querySelectorAll(
+        ".project-card, .skill-category, .certificate-card, .stat-card, .experience-card, .resume-card, .contact-form"
     );
 
-    // Smoothly animate the spotlight.
-    function animate() {
-        currentX += (mouseX - currentX) * 0.09;
-        currentY += (mouseY - currentY) * 0.09;
-
-        spotlight.style.transform =
-            `translate3d(${currentX}px, ${currentY}px, 0) ` +
-            "translate(-50%, -50%)";
-
-        requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    // Hide the spotlight when the pointer leaves the page.
-    document.addEventListener("mouseleave", () => {
-        document.body.classList.remove("mouse-active");
+    cards.forEach((card) => {
+        card.classList.add("mouse-highlight");
+        card.addEventListener("pointermove", (event) => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty("--pointer-x", `${event.clientX - rect.left}px`);
+            card.style.setProperty("--pointer-y", `${event.clientY - rect.top}px`);
+        }, { passive: true });
+        card.addEventListener("pointerenter", () => document.body.classList.add("cursor-hover"));
+        card.addEventListener("pointerleave", () => document.body.classList.remove("cursor-hover"));
     });
 
-    // Add hover highlighting to selected elements.
-    const interactiveElements = document.querySelectorAll(
-        [
-            ".project-card",
-            ".skill-category",
-            ".certificate-card",
-            ".stat-card",
-            ".experience-card",
-            ".resume-card",
-            ".contact-form"
-        ].join(", ")
-    );
+    function animateCursor() {
+        currentX += (targetX - currentX) * 0.22;
+        currentY += (targetY - currentY) * 0.22;
+        auraX += (targetX - auraX) * 0.075;
+        auraY += (targetY - auraY) * 0.075;
 
-    interactiveElements.forEach((element) => {
-        element.classList.add("mouse-highlight");
+        follower.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+        aura.style.transform = `translate3d(${auraX}px, ${auraY}px, 0) translate(-50%, -50%)`;
 
-        element.addEventListener("mouseenter", () => {
-            element.classList.add("is-hovered");
+        const followerMoving = Math.abs(targetX - currentX) > 0.35 || Math.abs(targetY - currentY) > 0.35;
+        const auraMoving = Math.abs(targetX - auraX) > 0.8 || Math.abs(targetY - auraY) > 0.8;
+
+        if (followerMoving || auraMoving) {
+            requestAnimationFrame(animateCursor);
+        } else {
+            frameRequested = false;
+        }
+    }
+
+    document.addEventListener("pointermove", (event) => {
+        targetX = event.clientX;
+        targetY = event.clientY;
+        document.body.classList.add("cursor-active");
+        if (!frameRequested) {
+            frameRequested = true;
+            requestAnimationFrame(animateCursor);
+        }
+    }, { passive: true });
+
+    document.addEventListener("pointerleave", () => {
+        document.body.classList.remove("cursor-active", "cursor-hover");
+    });
+})();
+
+/* =========================================================
+   SKILLS — ACCESSIBLE SINGLE-CARD ACCORDION
+========================================================= */
+(function initSkillCards() {
+    const cards = [...document.querySelectorAll("[data-skill-card]")];
+    if (!cards.length) return;
+
+    function setExpanded(selectedCard) {
+        const shouldExpand = !selectedCard.classList.contains("is-expanded");
+
+        cards.forEach((card) => {
+            const expanded = card === selectedCard && shouldExpand;
+            card.classList.toggle("is-expanded", expanded);
+            card.setAttribute("aria-expanded", String(expanded));
+
+            const title = card.querySelector("h3")?.textContent.trim() || "skills";
+            card.setAttribute("aria-label", `${expanded ? "Hide" : "Show"} ${title} skills`);
         });
+    }
 
-        element.addEventListener("mouseleave", () => {
-            element.classList.remove("is-hovered");
+    cards.forEach((card) => {
+        card.addEventListener("click", () => setExpanded(card));
+        card.addEventListener("keydown", (event) => {
+            if (event.key !== "Enter" && event.key !== " ") return;
+            event.preventDefault();
+            setExpanded(card);
         });
     });
 })();
+
 /* =========================================================
    21. BEYOND THE CODE — GALLERY LIGHTBOX
 ========================================================= */
@@ -772,7 +688,6 @@ document.documentElement.style.setProperty(
         }
     });
 })();
-
 
 /* =========================================
    22. 3D CERTIFICATION CAROUSEL
@@ -1006,8 +921,6 @@ document.documentElement.style.setProperty(
 
     renderCarousel();
 })();
-
-
 
 /* =========================================
    PROJECT CAROUSEL
